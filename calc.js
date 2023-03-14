@@ -1,15 +1,20 @@
 const numBtn = []
 const rows = []
 const grid = document.querySelector('.grid')
-function numClick() {
-    return function() {
-        rows.push(document.createElement('p'))
-        rows[i].className = 'row'
-        rows[i].textContent = i
-        grid.appendChild(rows[i])
-    }
+let currentRow = -1
+function newRow() {
+    currentRow++
+    rows.push(document.createElement('p'))
+    rows[currentRow].className = 'row'
+    grid.appendChild(rows[currentRow])
 }
+newRow()
 for(let i = 0; i < 10; i++) {
     numBtn.push(document.querySelector(`#num-btn-${i}`))
-    numBtn[i].addEventListener('click', numClick)
+    numBtn[i].addEventListener('click', numClick(i))
+}
+function numClick(i) {
+    return function() {
+        rows[currentRow].textContent += ' ' + numBtn[i].textContent
+    }
 }
